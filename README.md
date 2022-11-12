@@ -1,3 +1,4 @@
-# Munch Mates
+# MunchMates
 
-App for coordinating group meals
+Android app for finding fellow UMass students to eat with.  
+
