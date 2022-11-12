@@ -1,21 +1,15 @@
 package com.example.myapplication
 
-// Kotlin Imports
-import  java.util.Timer
-
 // Android Imports
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
@@ -30,26 +24,94 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Vert()
-                }
+                    Scaffold(
+                        bottomBar = {
+                            NavBar(
+                                { /* For Settings Function */ },
+                                { /* For Schedule Function */ }
+                            )
+                        },
+                        scaffoldState = rememberScaffoldState(
+                            rememberDrawerState(
+                                initialValue = DrawerValue.Closed
+                            )
+                        ),
+                        content = {
+                            HomepageBody(
+                                worcesterListener = {},
+                                franklinListener = {},
+                                hampshireListener = {},
+                                berkShireListener = {}
+                            )
+                        },
+            )
+        }
             }
         }
     }
 }
 
 @Composable
-fun Vert(modifier: Modifier = Modifier) {
-    Row(
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.Bottom,
+fun NavBar(
+    settingsListener: () -> Unit,
+    scheduleListener: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    BottomAppBar(
     ) {
-        Button(onClick = { /*TODO*/ }) {
-            Text(text = "Settings")
+       IconButton(
+           onClick = settingsListener,
+           modifier = modifier
+       ) {
+           Icon(
+               painter = painterResource(
+                   id = R.drawable.ic_baseline_settings_24
+               ),
+               contentDescription = "Settings"
+           )
+       }
+        IconButton(
+            onClick = scheduleListener,
+            modifier = modifier
+        ) {
+            Icon(
+                painter = painterResource(
+                    id = R.drawable.ic_baseline_schedule_24
+                ),
+                contentDescription = "Schedule"
+            )
         }
-        Button(onClick = { /*TODO*/ }) {
-            Text(text = "Schedule")
+
+    }
+}
+
+@Composable
+fun HomepageBody(
+    worcesterListener: () -> Unit,
+    franklinListener: () -> Unit,
+    hampshireListener: () -> Unit,
+    berkShireListener: () -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Button(onClick = worcesterListener) {
+            Text(text = "Worcester")
         }
-        
+
+        Button(onClick = franklinListener) {
+            Text(text = "Franklin")
+        }
+
+        Button(onClick = hampshireListener) {
+            Text(text = "Hampshire")
+        }
+
+        Button(onClick = berkShireListener) {
+            Text(text = "Berkshire")
+        }
     }
 }
 
@@ -58,6 +120,6 @@ fun Vert(modifier: Modifier = Modifier) {
 @Composable
 fun DefaultPreview() {
     MyApplicationTheme {
-        Vert()
+        NavBar({}, {})
     }
 }
