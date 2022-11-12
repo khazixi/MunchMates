@@ -18,6 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 // A surface container using the 'background' color from the theme
+                // Simple Comment Change
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
