@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -41,11 +42,12 @@ class MainActivity : ComponentActivity() {
                                 worcesterListener = {},
                                 franklinListener = {},
                                 hampshireListener = {},
-                                berkShireListener = {}
+                                berkShireListener = {},
+                                modifier = Modifier.height(70.dp).width(400.dp)
                             )
                         },
-            )
-        }
+                    )
+                }
             }
         }
     }
@@ -90,26 +92,36 @@ fun HomepageBody(
     worcesterListener: () -> Unit,
     franklinListener: () -> Unit,
     hampshireListener: () -> Unit,
-    berkShireListener: () -> Unit
+    berkShireListener: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+//        modifier = Modifier.fillMaxWidth().absolutePadding(40.dp, 40.dp, 40.dp, 40.dp),
+        verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(onClick = worcesterListener) {
+        Button(onClick = worcesterListener,
+            modifier = modifier
+        ) {
             Text(text = "Worcester")
         }
 
-        Button(onClick = franklinListener) {
+        Button(onClick = franklinListener,
+            modifier = modifier
+        ) {
             Text(text = "Franklin")
         }
 
-        Button(onClick = hampshireListener) {
+        Button(onClick = hampshireListener,
+            modifier = modifier
+        ) {
             Text(text = "Hampshire")
         }
 
-        Button(onClick = berkShireListener) {
+        Button(onClick = berkShireListener,
+            modifier = modifier
+        ) {
             Text(text = "Berkshire")
         }
     }
