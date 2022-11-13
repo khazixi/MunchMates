@@ -86,7 +86,9 @@ fun ScheduleBody(
                             .fillMaxWidth()
                             .padding(all = 10.dp)
                             .height(50.dp)
-                    ) {}
+                    ) {
+                        Text(text = "Submit")
+                    }
                 }
             }
         }

@@ -11,10 +11,10 @@ import com.example.myapplication.R
 // TODO: Extract into components file
 @Composable
 fun NavBar(
-    settingsListener: () -> Unit,
-    scheduleListener: () -> Unit,
-    homeListener: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    settingsListener: () -> Unit = {},
+    scheduleListener: () -> Unit = {},
+    homeListener: () -> Unit = {}
 ) {
     BottomAppBar(
     ) {
