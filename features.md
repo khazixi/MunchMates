@@ -1,0 +1,2 @@
+- [ ] Have ability to say which dining hall you want to go to and when
+- [ ] Have the ability to invite friends to the dining hall
