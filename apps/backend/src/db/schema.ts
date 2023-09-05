@@ -1,5 +1,6 @@
 // NOTE: We can make typescript schemas here and change them for migrations
 
+import { InferInsertModel } from "drizzle-orm";
 import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 
 export const users = sqliteTable('users', {
@@ -31,3 +32,6 @@ export const invite = sqliteTable('invite', {
     enum: ['accepted', 'pending', 'rejected']
   }).notNull()
 })
+
+export type sqlEvent = InferInsertModel<typeof event>
+export type sqlInvite = InferInsertModel<typeof invite>

@@ -1,11 +1,9 @@
 // NOTE: We can put all of our queries here
 // NOTE: I don't care if you use drizzle or write it raw, just add types so we know what we're using
 
-import { profile } from "console";
 import { eq, and } from "drizzle-orm";
 import { db } from "./db";
-import { invite, users } from './schema'
-
+import { event, invite, sqlEvent, sqlInvite, users } from './schema'
 
 export async function getParticipatingUsers(event_id: number) {
   return await db
@@ -44,6 +42,27 @@ export async function getInvites(user_id: number) {
     )
 }
 
+export async function updateInvites(user_id: number, event_id: number, accepted: boolean) {
+  return await db
+    .update(invite)
+    .set({
+      status: (accepted) ? 'accepted' : 'rejected'
+    })
+    .where(
+      and(
+        eq(invite.to, user_id),
+        eq(invite.event, event_id)
+      )
+    )
+}
+
+export async function createEvent(arg: sqlEvent) {
+  return await db
+    .insert(event)
+    .values(arg)
+    .returning({ id: event.event_id })
+}
+
 export async function getProfile(user_id: number) {
   return await db
     .select()
@@ -54,4 +73,10 @@ export async function getProfile(user_id: number) {
         user_id
       )
     )
+}
+
+export async function createInvite(arg: sqlInvite) {
+  return db
+    .insert(invite)
+    .values(arg)
 }
