@@ -6,7 +6,7 @@ import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 export const users = sqliteTable('users', {
   user_id: integer('user_id').primaryKey(),
   name: text('name').notNull(),
-  gender: text('geneder', {
+  gender: text('gender', {
     enum: ['male', 'female', 'non-binary', 'other']
   }).notNull()
 })
