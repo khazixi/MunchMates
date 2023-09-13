@@ -1,5 +1,7 @@
+import { NavigationContainer, NavigationContext } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { FlatList, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 const names = ['Wocester', 'Franklin', 'Hampsire', 'Berkshire']
@@ -24,7 +26,7 @@ function HallButton({ hall }: HallButtonProps) {
   )
 }
 
-export default function App() {
+function HomeScreen() {
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 56 }}> App Title</Text>
@@ -42,6 +44,28 @@ export default function App() {
       />
       <StatusBar style="auto" />
     </View>
+  )
+}
+
+// TODO: This needs a route parameter
+function EventScreen() {
+  return (
+    <View>
+      <Text> Events </Text>
+    </View>
+  )
+}
+
+const Stack = createNativeStackNavigator()
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Home'>
+        <Stack.Screen name='Home' component={HomeScreen} />
+        <Stack.Screen name='Event' component={EventScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
