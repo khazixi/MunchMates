@@ -1,16 +1,46 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { ReactNode, useState } from 'react';
+import { FlatList, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+
+const names = ['Wocester', 'Franklin', 'Hampsire', 'Berkshire']
+
+type HallButtonProps = {
+  hall: string
+}
+
+function HallButton({ hall }: HallButtonProps) {
+  const [isPressed, setPressed] = useState(false)
+  return (
+    <TouchableHighlight
+      onPress={() => setPressed(!isPressed)}
+      style={(isPressed) ? styles.hallButtonPressed : styles.hallButton}
+    >
+      <Text
+        style={(isPressed) ? { color: 'white', marginTop: 30, textAlign: 'center' } : { color: 'black', marginTop: 30, textAlign: 'center' }}
+      >
+        {hall}
+      </Text>
+    </TouchableHighlight>
+  )
+}
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>
-        Open up App.tsx to start working on your app!
+      <Text style={{ fontSize: 56 }}> App Title</Text>
+      <Text
+        style={{ fontSize: 28, fontWeight: 'bold' }}>
+        Halls
       </Text>
-      <StatusBar style="auto" />
-      <Button
-        title="This is a button"
+      <FlatList
+        data={names}
+        style={{ flexGrow: 0 }}
+        numColumns={2}
+        renderItem={({ item }) =>
+          <HallButton hall={item} />
+        }
       />
+      <StatusBar style="auto" />
     </View>
   );
 }
@@ -18,8 +48,31 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    gap: 8,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  hallButton: {
+    backgroundColor: 'white',
+    padding: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    borderRadius: 20,
+    width: 100,
+    height: 100,
+    margin: 10
+  },
+  hallButtonPressed: {
+    backgroundColor: 'black',
+    padding: 10,
+    borderColor: 'white',
+    color: 'white',
+    borderWidth: 2,
+    borderRadius: 20,
+    width: 100,
+    height: 100,
+    margin: 10
+  }
+
 });
