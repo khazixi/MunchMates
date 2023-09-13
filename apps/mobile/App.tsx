@@ -1,4 +1,4 @@
-import { NavigationContainer, NavigationContext } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
@@ -8,6 +8,10 @@ const names = ['Wocester', 'Franklin', 'Hampsire', 'Berkshire']
 
 type HallButtonProps = {
   hall: string
+}
+
+type EventButtonProps = {
+  color: string
 }
 
 function HallButton({ hall }: HallButtonProps) {
@@ -21,6 +25,49 @@ function HallButton({ hall }: HallButtonProps) {
         style={(isPressed) ? { color: 'white', marginTop: 30, textAlign: 'center' } : { color: 'black', marginTop: 30, textAlign: 'center' }}
       >
         {hall}
+      </Text>
+    </TouchableHighlight>
+  )
+}
+
+function EventButton({ color }: EventButtonProps) {
+  return (
+    <TouchableHighlight
+      style={{ backgroundColor: color, borderWidth: 2, borderRadius: 25, width: 200 }}
+    >
+      <Text
+        style={{ color: 'black', margin: 30, textAlign: 'center' }}
+      >
+        Event
+      </Text>
+    </TouchableHighlight>
+  )
+}
+
+// TODO: Add an Icon
+function ViewButton() {
+  return (
+    <TouchableHighlight
+      style={{ backgroundColor: 'green', borderWidth: 2, borderRadius: 25, width: 100 }}
+    >
+      <Text
+        style={{ color: 'black', margin: 30, textAlign: 'center' }}
+      >
+        View
+      </Text>
+    </TouchableHighlight>
+  )
+}
+
+function AddButton() {
+  return (
+    <TouchableHighlight
+      style={{ backgroundColor: 'red', borderWidth: 2, borderRadius: 25, width: 100 }}
+    >
+      <Text
+        style={{ color: 'black', margin: 30, textAlign: 'center' }}
+      >
+        +
       </Text>
     </TouchableHighlight>
   )
@@ -47,23 +94,32 @@ function HomeScreen() {
   )
 }
 
-// TODO: This needs a route parameter
+// TODO: Add Route Parameters for Dining Hall
+// NOTE: Do we use SWR or another fetch?
 function EventScreen() {
   return (
-    <View>
-      <Text> Events </Text>
+    <View style={styles.container}>
+      <Text style={{ fontSize: 56 }}> X Hall </Text>
+      <EventButton color='yellow' />
+      <View
+        style={{ flexDirection: 'row', gap: 4 }}
+      >
+        <ViewButton />
+        <AddButton />
+      </View>
     </View>
   )
 }
 
 const Stack = createNativeStackNavigator()
 
+// TODO: Add Links
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen name='Home' component={HomeScreen} />
+      <Stack.Navigator initialRouteName='Event'>
         <Stack.Screen name='Event' component={EventScreen} />
+        <Stack.Screen name='Home' component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
